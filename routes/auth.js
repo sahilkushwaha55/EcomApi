@@ -61,7 +61,8 @@ router.post('/login', loginLimiter, async (req, res) => {
         res.cookie('accessToken', accessToken, {
             maxAge: 30 * 24 * 60 * 60 *1000,
             httpOnly: true,
-            sameSite: 'strict'
+            sameSite: 'strict',
+            domain: 'steady-mooncake-c45f70.netlify.app/'
         })
 
         const { password, ...others } = user._doc
