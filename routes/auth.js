@@ -58,16 +58,16 @@ router.post('/login', loginLimiter, async (req, res) => {
         }, process.env.JWT_SEC,
             { expiresIn: "30d" })
 
-        res.cookie('accessToken', accessToken, {
-            maxAge: 30 * 24 * 60 * 60 *1000,
-            httpOnly: true,
-            sameSite: 'strict',
-            domain: 'steady-mooncake-c45f70.netlify.app/'
-        })
 
         const { password, ...others } = user._doc
 
-        return res.status(200).json(others)
+
+        return res.status(200).cookie('accessToken', accessToken, {
+            maxAge: 30 * 24 * 60 * 60 *1000,
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: true
+        }).json(others)
     }
     catch (err) {
         res.status(500).json(err.message)
