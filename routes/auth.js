@@ -61,14 +61,14 @@ router.post('/login', loginLimiter, async (req, res) => {
 
         const { password, ...others } = user._doc
 
+        // res.cookie('accessToken', accessToken, {
+        //     maxAge: 30 * 24 * 60 * 60 *1000,
+        //     httpOnly: true,
+        //     sameSite: 'strict',
+        //     secure: true
+        // })
 
-        return res.status(200).cookie('accessToken', accessToken, {
-            maxAge: 30 * 24 * 60 * 60 *1000,
-            httpOnly: true,
-            sameSite: 'strict',
-            secure: true,
-            domain: 'onrender.com'
-        }).json(others)
+        return res.status(200).json({...others, accessToken})
     }
     catch (err) {
         res.status(500).json(err.message)
