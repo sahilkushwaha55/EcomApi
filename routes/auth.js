@@ -23,9 +23,10 @@ router.post("/register", async (req, res) => {
     })
 
     try {
+        console.log("start")
         const saveUser = await newUser.save()
 
-        await cartModel.create({userId: saveUser._id})
+        await cartModel.create({userId: saveUser._id.toString()})
 
         return res.status(201).json("user created")
     }
